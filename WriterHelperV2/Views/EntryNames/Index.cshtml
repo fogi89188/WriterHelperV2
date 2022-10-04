@@ -1,0 +1,29 @@
+﻿@model List<WriterHelperV2.Models.Domain.EntryName>
+
+@{
+}
+<h1>Fantasy Names</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Race</th>
+            <th>FirstOrMiddleOrLastName</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var name in Model)
+        {
+            <tr>
+                <td>@name.Id</td>
+                <td>@name.Name</td>
+                <td>@name.Race</td>
+                <td>@name.FirstOrMiddleOrLastName</td>
+                <td>@name.Gender</td>
+                <td><a href="EntryNames/Update/@name.Id">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

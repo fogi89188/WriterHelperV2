@@ -1,0 +1,77 @@
+html {
+    font-size: 16px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+a {
+    color:aquamarine;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #303030;
+    color: white;
+}
+
+h1 {
+    color: aquamarine;
+    font: bolder;
+}
+
+nav {
+    background-color: #181818;
+    color: aquamarine;
+}
+
+.aquamarine {
+    background-color: aquamarine;
+}
+.aquamarine:hover {
+    filter: brightness(75%);
+}
+.darkGrey {
+    background-color: #181818;
+}
+.grey {
+    background-color: #303030;
+}
+
+thead {
+    color: aquamarine;
+}
+
+tr, tbody {
+    color: white;
+}
+
+nav {
+    background-color: #303030;
+    color: aquamarine;
+}
+
+input[type=text], input[type=text]:read-only{
+    color: white;
+    background-color: #353535;
+    outline: 0px solid black;
+}
+
+input[type=text]:focus {
+    color: aquamarine;
+    background-color: #454545;
+    outline: 2px solid aquamarine;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #353535 inset !important;
+    -webkit-text-fill-color: white;
+}
