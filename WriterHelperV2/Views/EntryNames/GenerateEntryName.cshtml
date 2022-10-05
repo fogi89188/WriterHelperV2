@@ -1,0 +1,22 @@
+﻿@model WriterHelperV2.Models.GenerateNameViewModel;
+@{
+}
+
+<h1> Generate Fantasy Name </h1>
+<form method="post" action="GenerateEntryName">
+    <div class="mb-3">
+        <label class="form-label">Race</label>
+        <input type="text" class="form-control" asp-for="Race" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <input type="text" class="form-control" asp-for="Gender" required>
+    </div>
+    <button type="submit" class="btn aquamarine fw-bold">Submit</button>
+
+    @if (Model.Name != null)
+    {
+        <h2> Generated Name: </h2>
+        <h3> @Model.Name </h3>
+    }
+</form>

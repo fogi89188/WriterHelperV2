@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Reflection;
 using WriterHelperV2.Data;
 using WriterHelperV2.Models;
 using WriterHelperV2.Models.Domain;
@@ -43,7 +46,7 @@ namespace WriterHelperV2.Controllers
             await writerHelperDBContext.EntryNames.AddAsync(entryName);
             await writerHelperDBContext.SaveChangesAsync();
 
-            return RedirectToAction("Add");
+            return NotFound();
         }
 
         [HttpGet]
@@ -63,15 +66,14 @@ namespace WriterHelperV2.Controllers
                 };
                 return View(viewModel);
             }
-            //TODO add error page
-            return RedirectToAction("Index");
+            return NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateEntryNameViewModel model)
         {
             var name = await writerHelperDBContext.EntryNames.FindAsync(model.Id);
-            if(name != null)
+            if (name != null)
             {
                 name.Name = model.Name;
                 name.Race = model.Race;
@@ -81,8 +83,7 @@ namespace WriterHelperV2.Controllers
                 await writerHelperDBContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            //TODO add error page
-            return RedirectToAction("Index");
+            return NotFound();
         }
 
         [HttpPost]
@@ -100,6 +101,50 @@ namespace WriterHelperV2.Controllers
 
             //TODO add error page
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GenerateEntryName()
+        {
+            var generateName = new GenerateNameViewModel()
+            {
+                Gender = null,
+                Race = null,
+                Name = null
+            };
+            return View(generateName);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenerateEntryName(GenerateNameViewModel model)
+        {
+            string gender = model.Gender;
+            string race = model.Race;
+
+            var firstName = await writerHelperDBContext.EntryNames.OrderBy(r => Guid.NewGuid()).FirstOrDefaultAsync(x =>
+                x.FirstOrMiddleOrLastName == $"First"
+                && x.Race == $"{race}"
+                && x.Gender == $"{gender}");
+            var middleName = await writerHelperDBContext.EntryNames.OrderBy(r => Guid.NewGuid()).FirstOrDefaultAsync(x =>
+                x.FirstOrMiddleOrLastName == $"Middle"
+                && x.Race == $"{race}"
+                && x.Gender == $"{gender}");
+            var lastName = await writerHelperDBContext.EntryNames.OrderBy(r => Guid.NewGuid()).FirstOrDefaultAsync(x =>
+                x.FirstOrMiddleOrLastName == $"Last"
+                && x.Race == $"{race}"
+                && x.Gender == $"{gender}");
+            if (firstName != null && middleName != null && lastName != null)
+            {
+                var resultName = new GenerateNameViewModel
+                {
+                    Gender = gender,
+                    Race = race,
+                    Name = $"{firstName.Name} {middleName.Name} {lastName.Name}"
+                };
+                return View(resultName);
+            }
+
+            return NotFound();
         }
     }
 }

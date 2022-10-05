@@ -4,14 +4,11 @@ html {
     min-height: 100%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
 a {
-    color:aquamarine;
+    color: aquamarine;
+}
+p {
+    font-size:24px;
 }
 
 body {
@@ -20,9 +17,11 @@ body {
     color: white;
 }
 
-h1 {
+h1, h2{
     color: aquamarine;
     font: bolder;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 nav {
